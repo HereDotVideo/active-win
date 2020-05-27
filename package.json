@@ -54,14 +54,14 @@
 		"brave"
 	],
 	"devDependencies": {
-		"ava": "^2.4.0",
-		"tsd": "^0.10.0",
-		"xo": "^0.25.3"
+		"ava": "^3.8.2",
+		"tsd": "^0.11.0",
+		"xo": "^0.30.0"
 	},
 	"optionalDependencies": {
-		"ffi-napi": "^2.4.5",
-		"ref-napi": "^1.4.2",
-		"ref-wchar-napi": "^1.0.2",
-		"ref-struct-napi": "^1.1.0"
+		"ffi-napi": "^3.0.0",
+		"ref-napi": "^2.0.1",
+		"ref-struct-napi": "https://github.com/HereDotVideo/ref-struct-napi.git",
+		"ref-wchar-napi": "https://github.com/HereDotVideo/ref-wchar-napi.git"
 	}
 }
