@@ -1,6 +1,6 @@
 {
 	"name": "active-win",
-	"version": "6.1.1",
+	"version": "6.2.0",
 	"description": "Get metadata about the active window (title, id, bounds, owner, URL, etc). Works on macOS, Linux, Windows.",
 	"license": "MIT",
 	"repository": "sindresorhus/active-win",
@@ -59,8 +59,7 @@
 		"xo": "^0.30.0"
 	},
 	"optionalDependencies": {
-		"ffi-napi": "^3.0.0",
-		"ref-napi": "^2.0.1",
+		"ref-napi": "^3.0.0",
 		"ref-struct-napi": "https://github.com/HereDotVideo/ref-struct-napi.git",
 		"ref-wchar-napi": "https://github.com/HereDotVideo/ref-wchar-napi.git"
 	}
