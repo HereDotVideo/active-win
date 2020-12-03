@@ -67,6 +67,7 @@
 		"xo": "^0.35.0"
 	},
 	"dependencies": {
+		"ffi-napi": "^3.1.0",
 		"ref-napi": "^3.0.1",
 		"ref-struct-napi": "https://github.com/HereDotVideo/ref-struct-napi.git",
 		"ref-wchar-napi": "https://github.com/HereDotVideo/ref-wchar-napi.git"
