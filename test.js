@@ -1,6 +1,6 @@
-import util from 'util';
-import test from 'ava';
-import activeWin from '.';
+const test = require('ava');
+const util = require('util');
+const activeWin = require('.');
 
 function asserter(t, result) {
 	t.log(util.inspect(result));

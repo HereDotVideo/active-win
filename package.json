@@ -11,12 +11,12 @@
 		"url": "https://sindresorhus.com"
 	},
 	"engines": {
-		"node": ">=8"
+		"node": ">=12"
 	},
 	"scripts": {
 		"test": "xo && ava && tsd",
-		"build": "swift build --configuration=release && mv .build/release/active-win main",
-		"prepublishOnly": "npm run build"
+		"build": "xcodebuild -project ActiveWinHelper/ActiveWinHelper.xcodeproj && mkdir bin && ncp ActiveWinHelper/build/release/ActiveWinHelper ./bin/ActiveWinHelper",
+		"postinstall": "npm run build"
 	},
 	"files": [
 		"index.js",
@@ -24,6 +24,11 @@
 		"lib",
 		"main"
 	],
+	"xo": {
+		"rules": {
+			"unicorn/import-style": "off"
+		}
+	},
 	"keywords": [
 		"macos",
 		"linux",
@@ -55,8 +60,9 @@
 	],
 	"devDependencies": {
 		"ava": "^3.13.0",
-		"tsd": "^0.13.1",
-		"xo": "^0.34.2"
+		"ncp": "^2.0.0",
+		"tsd": "^0.14.0",
+		"xo": "^0.35.0"
 	},
 	"optionalDependencies": {
 		"ref-napi": "^3.0.1",
