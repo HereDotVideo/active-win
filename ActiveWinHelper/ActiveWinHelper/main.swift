@@ -41,101 +41,105 @@ func toJson<T>(_ data: T) throws -> String {
 }
 
 func getActiveWin() throws {
-    let frontmostAppPID = NSWorkspace.shared.frontmostApplication?.processIdentifier
-    if let windows = CGWindowListCopyWindowInfo([.optionOnScreenOnly, .excludeDesktopElements], kCGNullWindowID) as? [[String: Any]] {
-        for window in windows {
-            if let windowOwnerPID = window[kCGWindowOwnerPID as String] as? pid_t {
-                if windowOwnerPID != frontmostAppPID {
-                    continue
-                }
-            }
+    var dict: [String: Any] = [:]
 
-            // Skip transparent windows, like with Chrome.
-            if let windowAlpha = window[kCGWindowAlpha as String] as? Double{
-                if windowAlpha == 0 {
-                    continue
-                }
-            }
-
-            if let dict = window[kCGWindowBounds as String] as? NSDictionary as CFDictionary? {
-                if let bounds = CGRect(dictionaryRepresentation: dict) {
-                    // Skip tiny windows, like the Chrome link hover statusbar.
-                    let minWinSize: CGFloat = 50
-                    if bounds.width < minWinSize || bounds.height < minWinSize {
+    // Show accessibility permission prompt if needed. Required to get the complete window title.
+    if !AXIsProcessTrustedWithOptions(["AXTrustedCheckOptionPrompt": false] as CFDictionary) {
+        dict["error"] = "missing accessibility permission"
+    } else {
+        let frontmostAppPID = NSWorkspace.shared.frontmostApplication?.processIdentifier
+        if let windows = CGWindowListCopyWindowInfo([.optionOnScreenOnly, .excludeDesktopElements], kCGNullWindowID) as? [[String: Any]] {
+            for window in windows {
+                if let windowOwnerPID = window[kCGWindowOwnerPID as String] as? pid_t {
+                    if windowOwnerPID != frontmostAppPID {
                         continue
                     }
-                    if let appPid = window[kCGWindowOwnerPID as String] as? pid_t {
-                        // This can't fail as we're only dealing with apps.
-                        if let app = NSRunningApplication(processIdentifier: appPid) {
-                            if let appName = window[kCGWindowOwnerName as String] as? String {
-                                var dict: [String: Any] = [
-                                    "title": window[kCGWindowName as String] as? String ?? "",
-                                    "id": window[kCGWindowNumber as String] as? Int ?? 0,
-                                    "bounds": [
+                }
+
+                // Skip transparent windows, like with Chrome.
+                if let windowAlpha = window[kCGWindowAlpha as String] as? Double{
+                    if windowAlpha == 0 {
+                        continue
+                    }
+                }
+
+                if let windowDict = window[kCGWindowBounds as String] as? NSDictionary as CFDictionary? {
+                    if let bounds = CGRect(dictionaryRepresentation: windowDict) {
+                        // Skip tiny windows, like the Chrome link hover statusbar.
+                        let minWinSize: CGFloat = 50
+                        if bounds.width < minWinSize || bounds.height < minWinSize {
+                            continue
+                        }
+                        if let appPid = window[kCGWindowOwnerPID as String] as? pid_t {
+                            // This can't fail as we're only dealing with apps.
+                            if let app = NSRunningApplication(processIdentifier: appPid) {
+                                if let appName = window[kCGWindowOwnerName as String] as? String {
+                                    dict["title"] = window[kCGWindowName as String] as? String ?? ""
+                                    dict["id"] = window[kCGWindowNumber as String] as? Int ?? 0
+                                    dict["bounds"] = [
                                         "x": bounds.origin.x,
                                         "y": bounds.origin.y,
                                         "width": bounds.width,
                                         "height": bounds.height
-                                    ],
-                                    "owner": [
+                                    ]
+                                    dict["owner"] = [
                                         "name": appName,
                                         "processId": String(appPid),
                                         "bundleId": app.bundleIdentifier ?? "",
                                         "path": app.bundleURL?.path ?? ""
-                                    ],
-                                    "memoryUsage": window[kCGWindowMemoryUsage as String] as? Int ?? ""
                                     ]
+                                    dict["memoryUsage"] = window[kCGWindowMemoryUsage as String] as? Int ?? ""
 
-                                do {
-                                    // Only run the AppleScript if active window is a compatible browser.
-                                    if
-                                        let script = getActiveBrowserTabURLAppleScriptCommand(appName),
-                                        let url = try runAppleScript(source: script)
-                                    {
-                                        dict["url"] = url
+                                    do {
+                                        // Only run the AppleScript if active window is a compatible browser.
+                                        if
+                                            let script = getActiveBrowserTabURLAppleScriptCommand(appName),
+                                            let url = try runAppleScript(source: script)
+                                        {
+                                            dict["url"] = url
+                                        }
+                                    } catch {
+                                        dict["getActiveBrowserTabURLAppleScriptCommand error"] = error
                                     }
-                                } catch {
-                                    print("active-win failed in getActiveBrowserTabURLAppleScriptCommand \(error)")
-                                    exit(1)
-                                }
-                                do {
-                                    // Only run the AppleScript if active window is a compatible browser.
-                                    if
-                                        let script = getActiveBrowserTabTitleAppleScriptCommand(appName),
-                                        let title = try runAppleScript(source: script)
-                                    {
-                                        dict["title"] = title
+                                    do {
+                                        // Only run the AppleScript if active window is a compatible browser.
+                                        if
+                                            let script = getActiveBrowserTabTitleAppleScriptCommand(appName),
+                                            let title = try runAppleScript(source: script)
+                                        {
+                                            dict["title"] = title
+                                        }
+                                    } catch {
+                                        dict["getActiveBrowserTabTitleAppleScriptCommand error"] = error
                                     }
-                                } catch {
-                                    print("active-win failed in getActiveBrowserTabTitleAppleScriptCommand \(error)")
-                                    exit(1)
-                                }
-
-                                do {
-                                    let json = try toJson(dict)
-                                    print(json)
-                                    exit(0)
-                                } catch {
-                                    print("active-win failed in toJson")
-                                    exit(1)
                                 }
                             }
                         }
                     }
                 }
             }
-
+        } else {
+            dict["error"] = "no windows found"
         }
-    } else {
-        print("active-win failed to get CGWindowListCopyWindowInfo.")
-        exit(1)
     }
+    let json = try toJson(dict)
+    print(json)
+    exit(0)
 }
 
 do {
-    try getActiveWin()
+    let arguments = CommandLine.arguments
+
+    if (arguments.contains("getActiveWin")) {
+        try getActiveWin()
+    } else if (arguments.contains("requestAccesibility")) {
+        // Show accessibility permission prompt if needed. Required to get the complete window title.
+        if !AXIsProcessTrustedWithOptions(["AXTrustedCheckOptionPrompt": true] as CFDictionary) {
+            exit(0)
+        }
+    }
     exit(0)
 } catch {
-    print("active-win failed ")
+    print("active-win failed \(error)")
     exit(1)
 }
