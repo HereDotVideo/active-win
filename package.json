@@ -62,11 +62,11 @@
 	"devDependencies": {
 		"ava": "^3.13.0",
 		"ncp": "^2.0.0",
-		"run-script-os": "^1.1.3",
 		"tsd": "^0.14.0",
 		"xo": "^0.35.0"
 	},
 	"dependencies": {
+		"run-script-os": "^1.1.3",
 		"ffi-napi": "^3.1.0",
 		"ref-napi": "^3.0.1",
 		"ref-struct-napi": "https://github.com/HereDotVideo/ref-struct-napi.git",
