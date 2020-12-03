@@ -1896,17 +1896,16 @@ fastq@^1.6.0:
   dependencies:
     reusify "^1.0.4"
 
-ffi-napi@^3.1.0:
+"ffi-napi@https://github.com/HereDotVideo/node-ffi-napi.git":
   version "3.1.0"
-  resolved "https://registry.yarnpkg.com/ffi-napi/-/ffi-napi-3.1.0.tgz#5bd037a26eaa4234c664e8b9d27be3719505c7bd"
-  integrity sha512-EsHO+sP2p/nUC/3l/l8m9niee1BLm4asUFDzkkBGR4kYVgp2KqdAYUomZhkKtzim4Fq7mcYHjpUaIHsMqs+E1g==
+  resolved "https://github.com/HereDotVideo/node-ffi-napi.git#e274105cf69278e3966e3398670515a8c1f8a2aa"
   dependencies:
-    debug "^4.1.1"
-    get-uv-event-loop-napi-h "^1.0.5"
-    node-addon-api "^2.0.0"
-    node-gyp-build "^4.2.1"
-    ref-napi "^2.0.1"
-    ref-struct-di "^1.1.0"
+    debug "^4.3.1"
+    get-uv-event-loop-napi-h "^1.0.6"
+    node-addon-api "^3.0.2"
+    node-gyp-build "^4.2.3"
+    ref-napi "^3.0.1"
+    ref-struct-di "^1.1.1"
 
 figures@^3.2.0:
   version "3.2.0"
@@ -2087,7 +2086,7 @@ get-symbol-from-current-process-h@^1.0.1, get-symbol-from-current-process-h@^1.0
   resolved "https://registry.yarnpkg.com/get-symbol-from-current-process-h/-/get-symbol-from-current-process-h-1.0.2.tgz#510af52eaef873f7028854c3377f47f7bb200265"
   integrity sha512-syloC6fsCt62ELLrr1VKBM1ggOpMdetX9hTrdW77UQdcApPHLmf7CI7OKcN1c9kYuNxKcDe4iJ4FY9sX3aw2xw==
 
-get-uv-event-loop-napi-h@^1.0.5:
+get-uv-event-loop-napi-h@^1.0.6:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/get-uv-event-loop-napi-h/-/get-uv-event-loop-napi-h-1.0.6.tgz#42b0b06b74c3ed21fbac8e7c72845fdb7a200208"
   integrity sha512-t5c9VNR84nRoF+eLiz6wFrEp1SE2Acg0wS+Ysa2zF0eROes+LzOfuTaVHxGy8AbS8rq7FHEJzjnCZo1BupwdJg==
@@ -3240,7 +3239,12 @@ node-addon-api@^2.0.0:
   resolved "https://registry.yarnpkg.com/node-addon-api/-/node-addon-api-2.0.2.tgz#432cfa82962ce494b132e9d72a15b29f71ff5d32"
   integrity sha512-Ntyt4AIXyaLIuMHF6IOoTakB3K+RWxwtsHNRxllEoA6vPwP9o4866g6YWDLUdnucilZhmkxiHwHr11gAENw+QA==
 
-node-gyp-build@^4.2.1:
+node-addon-api@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/node-addon-api/-/node-addon-api-3.0.2.tgz#04bc7b83fd845ba785bb6eae25bc857e1ef75681"
+  integrity sha512-+D4s2HCnxPd5PjjI0STKwncjXTUKKqm74MDMz9OPXavjsGmjkvwgLtA5yoxJUdmpj52+2u+RrXgPipahKczMKg==
+
+node-gyp-build@^4.2.1, node-gyp-build@^4.2.3:
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/node-gyp-build/-/node-gyp-build-4.2.3.tgz#ce6277f853835f718829efb47db20f3e4d9c4739"
   integrity sha512-MN6ZpzmfNCRM+3t57PTJHgHyw/h4OWnZ6mR8P5j/uZtqQr46RRuDE/P+g3n0YR/AiYXeWixZZzaip77gdICfRg==
@@ -3924,16 +3928,6 @@ redent@^3.0.0:
     indent-string "^4.0.0"
     strip-indent "^3.0.0"
 
-ref-napi@^2.0.1:
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/ref-napi/-/ref-napi-2.1.2.tgz#5986069d7b0ea83e1fef48239a2bd75318ce341b"
-  integrity sha512-aFl+vrIuLWUXMUTQGAwGAuSNLX3Ub5W3iVP8b7KyFFZUdn4+i4U1TXXTop0kCTUfGNu8glBGVz4lowkwMcPVVA==
-  dependencies:
-    debug "^4.1.1"
-    get-symbol-from-current-process-h "^1.0.2"
-    node-addon-api "^2.0.0"
-    node-gyp-build "^4.2.1"
-
 ref-napi@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/ref-napi/-/ref-napi-3.0.1.tgz#442c0b266c14620a3c3b5a1d9c8d8d997f33a86d"
@@ -3944,7 +3938,7 @@ ref-napi@^3.0.1:
     node-addon-api "^2.0.0"
     node-gyp-build "^4.2.1"
 
-ref-struct-di@^1.1.0:
+ref-struct-di@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/ref-struct-di/-/ref-struct-di-1.1.1.tgz#5827b1d3b32372058f177547093db1fe1602dc10"
   integrity sha512-2Xyn/0Qgz89VT+++WP0sTosdm9oeowLP23wRJYhG4BFdMUrLj3jhwHZNEytYNYgtPKLNTP3KJX4HEgBvM1/Y2g==

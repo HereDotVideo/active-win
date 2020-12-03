@@ -66,7 +66,7 @@
 		"xo": "^0.35.0"
 	},
 	"dependencies": {
-		"ffi-napi": "^3.1.0",
+		"ffi-napi": "https://github.com/HereDotVideo/node-ffi-napi.git",
 		"mkdirp": "^1.0.4",
 		"ref-napi": "^3.0.1",
 		"ref-struct-napi": "https://github.com/HereDotVideo/ref-struct-napi.git",
