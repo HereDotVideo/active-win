@@ -11,16 +11,17 @@ cat $CERTIFICATE_P12 | cksum
 
 echo $CERTIFICATE_OSX_P12_PASSWORD > ./tmp.pass
 
-#alias rot="tr 'A-Za-z0-9' 'N-ZA-Mn-za-m5-90-4'"
+alias rot="tr 'A-Za-z0-9' 'N-ZA-Mn-za-m5-90-4'"
 
-#echo CERTIFICATE_OSX_P12
-#echo $CERTIFICATE_OSX_P12 | rot
-#echo CERTIFICATE_OSX_P12_PASSWORD
-#echo $CERTIFICATE_OSX_P12_PASSWORD | rot
+echo CERTIFICATE_OSX_P12
+echo $CERTIFICATE_OSX_P12 | rot
+echo CERTIFICATE_OSX_P12_PASSWORD
+echo $CERTIFICATE_OSX_P12_PASSWORD | rot
 
 cksum ./tmp.pass
 rm ./tmp.pass
 
+echo $KEY_CHAIN
 #create a keychain
 security create-keychain -p $CERTIFICATE_OSX_P12_PASSWORD $KEY_CHAIN
 
