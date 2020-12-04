@@ -16,7 +16,7 @@
 	"scripts": {
 		"test": "xo && ava && tsd",
 		"build": "run-script-os",
-		"build:darwin": "xcodebuild -project ActiveWinHelper/ActiveWinHelper.xcodeproj && mkdirp bin &&  ncp ActiveWinHelper/build/release/ActiveWinHelper ./bin/ActiveWinHelper",
+		"build:darwin": "xcodebuild -configuration Release -project ActiveWinHelper/ActiveWinHelper.xcodeproj CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO  && mkdirp bin &&  ncp ActiveWinHelper/build/release/ActiveWinHelper ./bin/ActiveWinHelper",
 		"postinstall": "npm run build"
 	},
 	"files": [
