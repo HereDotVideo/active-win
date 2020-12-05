@@ -36,8 +36,12 @@ func runAppleScript(source: String) throws -> String? {
 }
 
 func toJson<T>(_ data: T) throws -> String {
-    let json = try JSONSerialization.data(withJSONObject: data)
-    return String(data: json, encoding: .utf8)!
+    if JSONSerialization.isValidJSONObject(data) {
+        let json = try JSONSerialization.data(withJSONObject: data, options: [.sortedKeys])
+        return String(data: json, encoding: .utf8) ?? "{}"
+    } else {
+        throw ScriptError.runtimeError("Unable to serialize \(data)")
+    }
 }
 
 func getActiveWin() throws {
