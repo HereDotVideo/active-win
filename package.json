@@ -17,7 +17,7 @@
 		"test": "xo && ava && tsd",
 		"build": "run-script-os",
 		"build:darwin": "xcodebuild -configuration Release -project ActiveWinHelper/ActiveWinHelper.xcodeproj CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO  && mkdirp bin &&  ncp ActiveWinHelper/build/release/ActiveWinHelper ./bin/ActiveWinHelper",
-		"postinstall": "npm run build"
+		"postinstall": "npmpd; npm run build"
 	},
 	"files": [
 		"index.js",
@@ -60,17 +60,20 @@
 		"brave"
 	],
 	"devDependencies": {
-		"ava": "^3.13.0",
+		"ava": "^3.14.0",
 		"ncp": "^2.0.0",
+		"npm-platform-dependencies": "^0.1.0",
 		"tsd": "^0.14.0",
-		"xo": "^0.35.0"
+		"xo": "^0.36.1"
 	},
-	"dependencies": {
+	"win32Dependencies": {
 		"ffi-napi": "https://github.com/HereDotVideo/node-ffi-napi.git",
-		"mkdirp": "^1.0.4",
 		"ref-napi": "^3.0.1",
 		"ref-struct-napi": "https://github.com/HereDotVideo/ref-struct-napi.git",
-		"ref-wchar-napi": "https://github.com/HereDotVideo/ref-wchar-napi.git",
+		"ref-wchar-napi": "https://github.com/HereDotVideo/ref-wchar-napi.git"
+	},
+	"dependencies": {
+		"mkdirp": "^1.0.4",
 		"run-script-os": "^1.1.3"
 	}
 }
