@@ -60,10 +60,10 @@
 		"brave"
 	],
 	"devDependencies": {
-		"ava": "^3.13.0",
+		"ava": "^3.14.0",
 		"ncp": "^2.0.0",
 		"tsd": "^0.14.0",
-		"xo": "^0.35.0"
+		"xo": "^0.36.1"
 	},
 	"dependencies": {
 		"ffi-napi": "https://github.com/HereDotVideo/node-ffi-napi.git",

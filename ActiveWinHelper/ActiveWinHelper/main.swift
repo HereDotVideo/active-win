@@ -16,7 +16,7 @@ func getActiveBrowserTabTitleAppleScriptCommand(_ appName: String) -> String? {
     case "Google Chrome", "Brave Browser", "Microsoft Edge":
         return "tell app \"\(appName)\" to get the title of active tab of front window"
     case "Safari":
-        return "tell app \"Safari\" to get title of front document"
+        return "tell app \"Safari\" to get name of front document"
     default:
         return nil
     }
@@ -145,5 +145,5 @@ do {
     exit(0)
 } catch {
     print("active-win failed \(error)")
-    exit(1)
+    exit(0)
 }
