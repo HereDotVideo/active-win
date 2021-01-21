@@ -103,7 +103,7 @@ func getActiveWin() throws {
                                             dict["url"] = url
                                         }
                                     } catch {
-                                        dict["getActiveBrowserTabURLAppleScriptCommand error"] = error
+                                        dict["error"] = "getActiveBrowserTabURLAppleScriptCommand \(error)"
                                     }
                                     do {
                                         // Only run the AppleScript if active window is a compatible browser.
@@ -114,7 +114,7 @@ func getActiveWin() throws {
                                             dict["title"] = title
                                         }
                                     } catch {
-                                        dict["getActiveBrowserTabTitleAppleScriptCommand error"] = error
+                                        dict["error"] = "getActiveBrowserTabTitleAppleScriptCommand \(error)"
                                     }
                                 }
                             }
